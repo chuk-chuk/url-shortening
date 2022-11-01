@@ -14,9 +14,12 @@ describe("App", () => {
 
   it("adds item to the urls list", () => {
     render(<App />);
-    userEvent.type(screen.getByTestId("urlInput"), "new-url");
+    userEvent.type(
+      screen.getByTestId("urlInput"),
+      "https://www.google.com/pets"
+    );
     userEvent.click(screen.getByText("Generate URL"));
-    expect(screen.getByText("new-url")).toBeInTheDocument();
+    expect(screen.getByText("https://www.google.com/pets")).toBeInTheDocument();
     expect(
       screen.queryByText("You can be the first one, enter your URL!")
     ).not.toBeInTheDocument();
@@ -27,8 +30,12 @@ describe("App", () => {
     userEvent.type(screen.getByTestId("urlInput"), "" || "{tab}");
     userEvent.click(screen.getByText("Generate URL"));
     expect(screen.getByText("Paste the long URL")).toBeInTheDocument();
-    expect(
-      screen.getByText("You can be the first one, enter your URL!")
-    ).toBeInTheDocument();
+  });
+
+  it("shows an error message when value entered is invalid", () => {
+    render(<App />);
+    userEvent.type(screen.getByTestId("urlInput"), "dev/");
+    userEvent.click(screen.getByText("Generate URL"));
+    expect(screen.getByText("URL isn't valid")).toBeInTheDocument();
   });
 });

@@ -3,6 +3,7 @@ import Button from "./components/Button/Button";
 import TextInput from "./components/TextInput/TextInput";
 import ValidationMessage from "./components/ValidationMessage/ValidationMessage";
 import { mockedUrlList } from "./helpers/mockedData";
+import { isValidURL } from "./helpers/validateUrl";
 
 function App() {
   const [userInput, setUserInput] = useState("");
@@ -17,11 +18,17 @@ function App() {
     setUserInput(value);
   };
 
-  const onValidate = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onValidate = () => {
     if (!userInput) {
       setMessage({
         ...message,
         error: "Paste the long URL",
+      });
+      return;
+    } else if (!isValidURL(userInput)) {
+      setMessage({
+        ...message,
+        error: "URL isn't valid",
       });
       return;
     } else {
