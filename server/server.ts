@@ -1,10 +1,23 @@
-import express from "express";
+import express, { Request, Response } from "express";
+
+interface RequestWithBody extends Request {
+  body: { [key: string]: string | undefined }
+};
 
 const app = express();
+const port = process.env.PORT || 8080;
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-app.listen(3001, () => {
-  console.log("Server is listening on http://localhost:3001");
+app.get("/urls", (req: Request, res: Response) => {
+  res.send(["www.one.com"]);
+});
+
+app.post("/url", (req: RequestWithBody, res: Response) => {
+  const { url } = req.body;
+  res.send(`Saved! ${url}`);
+});
+
+app.listen(port, () => {
+  return console.log(`Node server is listening at http://localhost:${port}`);
 });
