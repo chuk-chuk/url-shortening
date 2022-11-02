@@ -1,23 +1,30 @@
-import express, { Request, Response } from "express";
+import express, { Express } from "express";
+import * as dotenv from "dotenv";
+import cors from "cors";
+import morgan from "morgan";
+import { connectToDatabase } from "./src/database";
+import urlRoutes from "./src/routes";
 
-interface RequestWithBody extends Request {
-  body: { [key: string]: string | undefined }
-};
+dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 8080;
+if (!process.env.PORT) {
+  process.exit(1);
+}
 
+const PORT: number = parseInt(process.env.PORT as string, 10) || 6060;
+const app: Express = express();
+
+app.use(morgan("dev"));
 app.use(express.json());
+app.use(cors());
 
-app.get("/urls", (req: Request, res: Response) => {
-  res.send(["www.one.com"]);
-});
+/** Routes */
+app.use("/", urlRoutes);
 
-app.post("/url", (req: RequestWithBody, res: Response) => {
-  const { url } = req.body;
-  res.send(`Saved! ${url}`);
-});
+/** Error handling */
 
-app.listen(port, () => {
-  return console.log(`Node server is listening at http://localhost:${port}`);
+connectToDatabase();
+
+app.listen(PORT, () => {
+  console.log(`Node server is running on port: ${PORT}`);
 });
