@@ -1,14 +1,16 @@
 import { Schema, Document } from "mongoose";
 
 export interface IUrl extends Document {
-    url: string;
+    longUrl: string;
+    shortenedUrl: string;
   }
 
 export const UrlSchema = new Schema<IUrl>(
     {
-        url: { type: String, required: true },
+      longUrl: { type: String, required: true },
+      shortenedUrl: { type: String, required: true },
     },
-    { timestamps: false }
+    { timestamps: false, versionKey: false }
   );
 
 export const UrlsCollection = "urls";
