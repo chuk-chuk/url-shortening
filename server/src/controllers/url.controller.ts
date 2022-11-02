@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getAllUrls } from "../businessLogic/url.businessLogic";
+import { createNewUrl, getAllUrls } from "../businessLogic/url.businessLogic";
 
 const getUrls = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -11,4 +11,16 @@ const getUrls = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getUrls };
+const createUrl = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const createdObject = req.body || {};
+    const { code, data } = await createNewUrl(createdObject);
+    res.status(code).json(data);
+  } catch (error) {
+    res.status(500).send({ message: "Error creating a new record" });
+    next(error);
+  }
+};
+
+
+export default { getUrls, createUrl };
