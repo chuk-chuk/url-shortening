@@ -14,8 +14,8 @@ const getUrls = async (req: Request, res: Response, next: NextFunction) => {
 const createUrl = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const createdObject = req.body || {};
-    const { code, data } = await createNewUrl(createdObject);
-    res.status(code).json(data);
+    const { data } = await createNewUrl(createdObject);
+    res.status(data.code).json(data);
   } catch (error) {
     res.status(500).send({ message: "Error creating a new record" });
     next(error);

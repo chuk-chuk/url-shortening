@@ -11,20 +11,19 @@ export const getAllUrls = async (): Promise<{
 };
 
 export const createNewUrl = async (createdObject: {
-  url: string;
+  longUrl: string;
 }): Promise<{
-    code: number;
-    data: { message: string; id?: Types.ObjectId };
+    data: { code: number, message: string; id?: Types.ObjectId };
 }> => {
-  if (!createdObject.url) {
-    return { code: 400, data: { message: "Url is required" } };
+  if (!createdObject.longUrl) {
+    return {  data: { code: 400, message: "Url is required" } };
   }
-  const isExisting = await Url.findOne({ longUrl: createdObject.url });
+  const isExisting = await Url.findOne({ longUrl: createdObject.longUrl });
 
   if (isExisting) {
     return {
-      code: 409,
       data: {
+        code: 409,
         message: "Record already exists.",
       },
     };
@@ -37,21 +36,21 @@ export const createNewUrl = async (createdObject: {
 
   if (isNotUnique) {
     return {
-      code: 409,
       data: {
+        code: 409,
         message: "Shortened URL needs to be unique",
       },
     };
   }
 
   const recordToCreate = await Url.create({
-    longUrl: createdObject.url,
+    longUrl: createdObject.longUrl,
     shortenedUrl
   });
 
   return {
-    code: 200,
     data: {
+      code: 200,
       message: "Created successfully",
       id: recordToCreate._id,
     },
