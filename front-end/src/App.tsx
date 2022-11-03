@@ -6,9 +6,8 @@ import Button from "./components/Button/Button";
 import TextInput from "./components/TextInput/TextInput";
 import ValidationMessage from "./components/ValidationMessage/ValidationMessage";
 import { isValidURL } from "./helpers/validateUrl";
+import { getUrlsFromApi, postUrlToApi } from "./helpers/api";
 import { Url } from "./App.types";
-
-const baseUrl = "http://localhost:8000";
 
 function App() {
   const [userInput, setUserInput] = useState("");
@@ -19,14 +18,13 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${baseUrl}/urls`)
-      .then((response) => response.json())
+    getUrlsFromApi()
       .then((data) => {
         setUrlList(data);
         setLoading(false);
       })
       .catch((error) => {
-        return error;
+        setErrorMessage(error);
       });
   }, [refreshPage]);
 
@@ -46,22 +44,15 @@ function App() {
       return;
     } else {
       setLoading(true);
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ longUrl: userInput }),
-      };
-      fetch(`${baseUrl}/url`, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          setLoading(false);
-          if (data.code === 409) {
-            setErrorMessage(data.message);
-          }
-          if (data.code === 200) {
-            setRefreshPage(true);
-          }
-        });
+      postUrlToApi(userInput).then((data) => {
+        setLoading(false);
+        if (data.code === 409) {
+          setErrorMessage(data.message);
+        }
+        if (data.code === 200) {
+          setRefreshPage(true);
+        }
+      });
       setUserInput("");
       setErrorMessage("");
     }
@@ -93,12 +84,10 @@ function App() {
         <>
           <p className="font-bold mb-4">List of previously shortened URLs</p>
           <ul>
-            {urlList.map((item, index) => (
-              <div className="flex items-center">
+            {urlList.map((item) => (
+              <div key={item._id} className="flex items-center">
                 <FontAwesomeIcon icon={faLink as IconProp} />
-                <li className="ml-1 mb-2" key={index}>
-                  {item.shortenedUrl}
-                </li>
+                <li className="ml-1 mb-2">{item.shortenedUrl}</li>
               </div>
             ))}
           </ul>
