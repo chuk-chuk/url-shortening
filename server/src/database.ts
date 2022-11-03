@@ -16,4 +16,3 @@ const connectToExternalDatabase = async () => {
 export const connectToDatabase = async () => {
   return await connectToExternalDatabase();
 };
-
