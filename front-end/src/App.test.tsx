@@ -56,6 +56,18 @@ describe("App", () => {
     );
     userEvent.click(screen.getByText("Generate URL"));
 
+    jest.spyOn(api, "getUrlsFromApi").mockResolvedValue([
+      {
+        longUrl: "https://www.google.com/pets",
+        shortenedUrl: "https://pbid.io/nxbo6e7gg",
+        _id: "536292d5c9204d2f6711b3bd",
+      },
+    ]);
+
+    await waitFor(() => {
+      expect(screen.getByText("https://pbid.io/nxbo6e7gg")).toBeInTheDocument();
+    });
+
     await waitFor(() => {
       expect(
         screen.queryByText("You can be the first one, enter your URL!")

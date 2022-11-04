@@ -13,7 +13,6 @@ function App() {
   const [userInput, setUserInput] = useState("");
   const [urlList, setUrlList] = useState<Url[]>([]);
   const [loading, setLoading] = useState(false);
-  const [refreshPage, setRefreshPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -26,7 +25,7 @@ function App() {
       .catch((error) => {
         setErrorMessage(error);
       });
-  }, [refreshPage]);
+  }, []);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -50,7 +49,13 @@ function App() {
           setErrorMessage(data.message);
         }
         if (data.code === 200) {
-          setRefreshPage(true);
+          getUrlsFromApi()
+            .then((data) => {
+              setUrlList(data);
+            })
+            .catch((error) => {
+              setErrorMessage(error);
+            });
         }
       });
       setUserInput("");
