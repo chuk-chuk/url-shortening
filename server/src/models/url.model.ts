@@ -1,11 +1,11 @@
-import { Schema, Document } from "mongoose";
+import * as mongoose from "mongoose";
 
 export interface IUrl extends Document {
   longUrl: string;
   shortenedUrl: string;
 }
 
-export const UrlSchema = new Schema<IUrl>(
+export const UrlSchema = new mongoose.Schema<IUrl>(
   {
     longUrl: { type: String, required: true },
     shortenedUrl: { type: String, required: true },
@@ -14,3 +14,5 @@ export const UrlSchema = new Schema<IUrl>(
 );
 
 export const UrlsCollection = "urls";
+
+export const UrlModel = mongoose.model("Url", UrlSchema, UrlsCollection);
