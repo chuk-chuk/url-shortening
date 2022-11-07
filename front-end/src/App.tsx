@@ -70,7 +70,7 @@ function App() {
       <h1 className="text-2xl text-green-900 mb-4">Short URL Generator</h1>
       <TextInput
         data-testid="urlInput"
-        id="url"
+        inputID="urlInput"
         type="text"
         value={userInput}
         onChange={handleOnChange}
@@ -84,6 +84,7 @@ function App() {
         buttonClassName="my-4"
         onClick={onValidate}
         disabled={loading}
+        aria-disabled={loading}
       />
       {urlList.length > 0 ? (
         <>

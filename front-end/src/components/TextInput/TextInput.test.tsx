@@ -4,7 +4,7 @@ import TextInput from "./TextInput";
 
 describe("TextInput", () => {
   it("renders a component with the correct placeholder", () => {
-    render(<TextInput id="name" placeholder="type here" />);
+    render(<TextInput inputID="name" placeholder="type here" />);
     const input = screen.getByPlaceholderText("type here");
     expect(input).toBeInTheDocument();
   });
@@ -12,7 +12,11 @@ describe("TextInput", () => {
   it("calls onChange", () => {
     const onChangeMock = jest.fn();
     render(
-      <TextInput data-testid="test-input" id="name" onChange={onChangeMock} />
+      <TextInput
+        data-testid="test-input"
+        inputID="name"
+        onChange={onChangeMock}
+      />
     );
     const input = screen.getByTestId("test-input");
     userEvent.type(input, "hello");

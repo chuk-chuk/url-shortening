@@ -1,6 +1,7 @@
 import { InputHTMLAttributes } from "react";
 
 export type TextInputProps = {
-  id: string;
+  inputID: string;
+  label?: string;
   inputClassName?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
