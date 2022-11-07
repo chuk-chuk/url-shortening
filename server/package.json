@@ -4,10 +4,9 @@
   "description": "Node server to shorten urls",
   "main": "server.ts",
   "scripts": {
-    "start": "nodemon server.ts",
+    "start": "ts-node-dev --respawn --pretty --transpile-only server.ts",
     "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "watch:server": "ts-node-dev --respawn --pretty --transpile-only server.ts"
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Yulia",
   "license": "ISC",
@@ -29,7 +28,6 @@
     "@types/supertest": "^2.0.12",
     "jest": "^29.2.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20",
     "supertest": "^6.3.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
