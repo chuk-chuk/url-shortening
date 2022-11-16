@@ -6,7 +6,7 @@ The frontend part of the application is bootstrapped with Create React App and u
 
 Functionality:
 
-A user can enter a long URL (for example, www.google.com/games.com) and they will get an 8 character (lowercase-alphanumeric) shortened version of the URL (https://pbid.io/f3x2ab1c).
+A user can enter a long URL (for example, www.google.com/games.com) and they will get an 8 character (lowercase-alphanumeric) shortened version of the URL (https://random.io/f3x2ab1c).
 URLs are shortened and persisted into the database.
 In the browser a list of previously shortened URLs is displayed.
 By clicking the button "generate" new urls are added to the list.

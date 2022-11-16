@@ -7,12 +7,12 @@ import * as api from "./helpers/api";
 const mockedResponseWithData = [
   {
     longUrl: "www.test.com",
-    shortenedUrl: "https://pbid.io/nxbo6e7gg",
+    shortenedUrl: "https://random.io/nxbo6e7gg",
     _id: "536292d5c9204d2f6711b3bd",
   },
   {
     longUrl: "www.google.com",
-    shortenedUrl: "https://pbid.io/00bo6e7xx",
+    shortenedUrl: "https://random.io/00bo6e7xx",
     _id: "636292d5c9204d2f6711b3wq",
   },
 ];
@@ -35,8 +35,8 @@ describe("App", () => {
     render(<App />);
     await waitFor(() => {
       screen.getByText("List of previously shortened URLs");
-      screen.getByText("https://pbid.io/nxbo6e7gg");
-      screen.getByText("https://pbid.io/00bo6e7xx");
+      screen.getByText("https://random.io/nxbo6e7gg");
+      screen.getByText("https://random.io/00bo6e7xx");
     });
   });
 
@@ -59,13 +59,15 @@ describe("App", () => {
     jest.spyOn(api, "getUrlsFromApi").mockResolvedValue([
       {
         longUrl: "https://www.google.com/pets",
-        shortenedUrl: "https://pbid.io/nxbo6e7gg",
+        shortenedUrl: "https://random.io/nxbo6e7gg",
         _id: "536292d5c9204d2f6711b3bd",
       },
     ]);
 
     await waitFor(() => {
-      expect(screen.getByText("https://pbid.io/nxbo6e7gg")).toBeInTheDocument();
+      expect(
+        screen.getByText("https://random.io/nxbo6e7gg")
+      ).toBeInTheDocument();
     });
 
     await waitFor(() => {

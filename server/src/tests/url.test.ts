@@ -10,19 +10,19 @@ const baseURL = "http://localhost:8000";
 const newURL = {
   _id: "636292d5c9204d2f6711b3cc",
   longUrl: "www.test-3.com",
-  shortenedUrl: "https://pbid.io/eebo6e7gg",
+  shortenedUrl: "https://random.io/eebo6e7gg",
 };
 
 const urlData = [
   {
     _id: "636292d5c9204d2f6711b3aa",
     longUrl: "www.test-1.com",
-    shortenedUrl: "https://pbid.io/nxbo6e7gg",
+    shortenedUrl: "https://random.io/nxbo6e7gg",
   },
   {
     _id: "636292d5c9204d2f6711b3bb",
     longUrl: "www.test-2.com",
-    shortenedUrl: "https://pbid.io/xxbo6e7gg",
+    shortenedUrl: "https://random.io/xxbo6e7gg",
   },
 ];
 

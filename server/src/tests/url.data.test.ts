@@ -4,7 +4,7 @@ import { IUrl } from "../models/url.model";
 const mockedRecords = [
   {
     longUrl: "www.test.com",
-    shortenedUrl: "https://pbid.io/eebo6e7gg",
+    shortenedUrl: "https://random.io/eebo6e7gg",
   },
 ] as IUrl[];
 

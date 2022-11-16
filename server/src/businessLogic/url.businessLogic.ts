@@ -30,7 +30,7 @@ export const createNewUrl = async (createdObject: {
   }
 
   const randomExtension = Math.random().toString(36).slice(4);
-  const shortenedUrl = `https://pbid.io/${randomExtension}`;
+  const shortenedUrl = `https://random.io/${randomExtension}`;
 
   const isNotUnique = await Url.findOne({ shortenedUrl: shortenedUrl });
 
