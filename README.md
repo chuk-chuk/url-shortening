@@ -24,6 +24,8 @@ Technology used:
 - Mongoose
 - react-resting-library, Jest
 
+![screenshot](./front-end/public/image.png)
+
 ## Project setup
 
 Clone down this repository.
